@@ -8,8 +8,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-console.log("hello");
-
 var database = firebase.database();
 
 
@@ -35,14 +33,6 @@ $("#add-user").on("click", function (event) {
   // Uploads employee data to the database
   database.ref().push(newEntry);
 
-  // // Logs everything to console
-  // console.log(newEntry.train);
-  // console.log(newEntry.destination);
-  // console.log(newEntry.firstTrain);
-  // console.log(newEntry.frequency);
-
-  // alert("Added new train!");
-
   // Clears all of the text-boxes
   $("#trainName").val("");
   $("#trainDestination").val("");
@@ -59,15 +49,10 @@ database.ref().on("child_added", function (childSnapshot) {
   var newFirst = childSnapshot.val().firstTrain;
   var newFreq = childSnapshot.val().frequency;
 
-  // newloyee Info
-  console.log(newTrain);
-  console.log(newDest);
-  console.log(newFirst);
-  console.log(newFreq);
 
   var tFrequency = Number(newFreq);
 
-  // Time is 3:30 AM
+  // Time is set to snapshotval
   var firstTime = newFirst;
 
   // First Time (pushed back 1 year to make sure it comes before current time)
@@ -96,7 +81,7 @@ database.ref().on("child_added", function (childSnapshot) {
   console.log(nextTrain);
 
   
-
+  // create new row and append data
   var newRow = $("<tr>").append(
     $("<td>").text(newTrain),
     $("<td>").text(newDest),
@@ -105,7 +90,7 @@ database.ref().on("child_added", function (childSnapshot) {
     $("<td>").text(tMinutesTillTrain)
     
   );
-
+    // append data to table
   $("#train-table > tbody").append(newRow);
 
 
