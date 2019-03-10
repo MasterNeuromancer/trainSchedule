@@ -19,7 +19,7 @@ $("#add-user").on("click", function (event) {
   // Grabbed values from text boxes
   var train = $("#trainName").val().trim();
   var destination = $("#trainDestination").val().trim();
-  var firstTrain = moment($("#firstDeparture").val().trim(), "MM/DD/YYYY").format("X");
+  var firstTrain = $("#firstDeparture").val().trim();
   var frequency = $("#trainFrequency").val().trim();
 
   // Code for handling the push
@@ -65,10 +65,10 @@ database.ref().on("child_added", function (childSnapshot) {
   console.log(newFirst);
   console.log(newFreq);
 
-  var tFrequency = 30;
+  var tFrequency = Number(newFreq);
 
   // Time is 3:30 AM
-  var firstTime = "03:30";
+  var firstTime = newFirst;
 
   // First Time (pushed back 1 year to make sure it comes before current time)
   var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
@@ -92,18 +92,26 @@ database.ref().on("child_added", function (childSnapshot) {
   
 
   // Next Train
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-  console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm");
+  console.log(nextTrain);
+
+  
 
   var newRow = $("<tr>").append(
     $("<td>").text(newTrain),
     $("<td>").text(newDest),
     $("<td>").text(newFreq),
-    //$("<td>").text(newFirst),
-    $("<td>").text(tMinutesTillTrain),
+    $("<td>").text(nextTrain),
+    $("<td>").text(tMinutesTillTrain)
     
-    $("<td>").text(nextTrain)
   );
 
   $("#train-table > tbody").append(newRow);
+
+
 });
+
+
+setInterval(function() {
+  window.location.reload();
+}, 60000);
