@@ -1,0 +1,17 @@
+body {
+    background-image: url("images/ceide-fields-overview.jpg");
+    background-size: cover;
+}
+
+.jumbotron{
+    background-image: url("images/photo-1495313196544-7d1adf4e628f.jpg");
+    background-size: cover;
+    color: rgba(247, 22, 22, 0.938);
+    text-emphasis-color: white;
+    font-weight: bold;
+  }
+
+.card-header{
+    background-color: aqua;
+    color: rgba(247, 22, 22, 0.938);
+}
